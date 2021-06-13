@@ -6,8 +6,133 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather Dashboard</title>
     <link rel="stylesheet" href="./assets/style/style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   </head>
   <body>
+    <header class="header">
+      <h1>Weather Dashboard</h1>
+    </header>
+    <section class="main">
+      <section class="search">
+        <form class="search-form">
+          <label id="search-label" for="search-input">Search for a City:</label>
+          <input id="search-city" type="text" maxlength="25" onclick="this.select()"/>
+          <button id="search-button">Search</button>
+          <select id="search-state">
+          <option selected disabled="disabled" value="">Select State</option>
+          <option value ="Alabama">Alabama</option>
+          <option value ="Alaska">Alaska</option>
+          <option value ="Arizona">Arizona</option>
+          <option value ="Arkansas">Arkansas</option>
+          <option value ="Califonia">Califonia</option>
+          <option value ="Colorado">Colorado</option>
+          <option value ="Connecticut">Connecticut</option>
+          <option value ="Delaware">Delaware</option>
+          <option value ="Florida">Florida</option>
+          <option value ="AGeorgia">Georgia</option>
+          <option value ="Hawaii">Hawaii</option>
+          <option value ="Idaho">Idaho</option>
+          <option value ="Illinois">Illinois</option>
+          <option value ="Indiana">Indiana</option>
+          <option value ="Iowa">Iowa</option>
+          <option value ="Kansas">Kansas</option>
+          <option value ="Kentucky">Kentucky</option>
+          <option value ="Louisiana">Louisiana</option>
+          <option value ="AMaine">Maine</option>
+          <option value ="Maryland">Maryland</option>
+          <option value ="Massachusetts">Massachusetts</option>
+          <option value="Michigan">Michigan</option>
+          <option value="Minnesota">Minnesota</option>
+          <option value="Mississippi">Mississippi</option>
+          <option value="Missouri">Missouri</option>
+          <option value="Montana">Montana</option>
+          <option value="Nebraska">Nebraska</option>
+          <option value="Nevada">Nevada</option>
+          <option value="New Hampshire">New Hampshire</option>
+          <option value="New Jersey">New Jersey</option>
+          <option value="New Mexico">New Mexico</option>
+          <option value="New York">New York</option>
+          <option value="North Carolina">North Carolina</option>
+          <option value="North Dakota">North Dakota</option>
+          <option value="Ohio">Ohio</option>
+          <option value="Oklahoma">Oklahoma</option>
+          <option value="Oregon">Oregon</option>
+          <option value="Pennsylvania">Pennsylvania</option>
+          <option value="Rhode Island">Rhode Island</option>
+          <option value="South Carolina">South Carolina</option>
+          <option value="South Dakota">South Dakota</option>
+          <option value="Tenessee">Tenessee</option>
+          <option value="Texas">Texas</option>
+          <option value="Utah">Utah</option>
+          <option value="Vermont">Vermont</option>
+          <option value="Virginia">Virginia</option>
+          <option value="Washington">Washington</option>
+          <option value="West Virginia">West Virginia</option>
+          <option value="Wisconsin<">Wisconsin</option>
+          <option value="Wyoming">Wyoming</option>
+        </select>
+        </form>
+        <div id="search-history">
+            <h3>Recent Searches</h3>
+            <ul id="search-list">
+
+            </ul>
+        </div>
+      </section>
+      <section class="current-container">
+          <section id="display-current">
+              <div id="display-header"></div>
+              <div id="display-temp"></div>
+              <div id="display-wind"></div>
+              <div id="display-humidity"></div>
+              <div id="display-uv"></div>
+          </section>
+          <h3 id="five-day-header">5-Day Forecast</h3>
+          <section id="display-forcast">
+              <article class="forecast-container" id="day-1">
+                  <div id="day-1-date"></div>
+                  <img id="day-1-img">
+                  <div id="day-1-temp-high"></div>
+                  <div id="day-1-temp-low"></div>
+                  <div id="day-1-wind"></div>
+                  <div id="day-1-humidity"></div>
+              </article>
+              <article class="forecast-container" id="day-2">
+                <div id="day-2-date"></div>
+                <img id="day-2-img">
+                <div id="day-2-temp-high"></div>
+                <div id="day-2-temp-low"></div>
+                <div id="day-2-wind"></div>
+                <div id="day-2-humidity"></div>
+              </article>
+              <article class="forecast-container" id="day-3">
+                <div id="day-3-date"></div>
+                <img id="day-3-img">
+                <div id="day-3-temp-high"></div>
+                <div id="day-3-temp-low"></div>
+                <div id="day-3-wind"></div>
+                <div id="day-3-humidity"></div>
+              </article>
+              <article class="forecast-container" id="day-4">
+                <div id="day-4-date"></div>
+                <img id="day-4-img">
+                <div id="day-4-temp-high"></div>
+                <div id="day-4-temp-low"></div>
+                <div id="day-4-wind"></div>
+                <div id="day-4-humidity"></div>
+              </article>
+              <article class="forecast-container" id="day-5">
+                <div id="day-5-date"></div>
+                <img id="day-5-img">
+                <div id="day-5-temp-high"></div>
+                <div id="day-5-temp-low"></div>
+                <div id="day-5-wind"></div>
+                <div id="day-5-humidity"></div>
+              </article>
+          </section>
+        </section>
+      </section>
+    </section>
     <script src="./assets/script/script.js"></script>
   </body>
 </html>
