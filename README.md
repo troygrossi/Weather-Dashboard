@@ -1,10 +1,10 @@
-### Weather Dashboard
+# Weather Dashboard
 
 ## By: Troy Grossi
 
-# Using: openweathermap.org API
+### Using: openweathermap.org API
 
-# Features:
+### Features:
 
 - Search for city
 - Presents future and present weather conditions
@@ -13,6 +13,6 @@
 - Presents a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
 - List of recent search city search history
 
-Live URL:
+Live URL: https://troygrossi.github.io/Weather-Dashboard/
 
-Screenshot:
+Screenshot: <img src="./assets/images/screenshot.png"/>

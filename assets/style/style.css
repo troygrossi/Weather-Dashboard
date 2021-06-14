@@ -17,12 +17,16 @@
 * {
   box-sizing: border-box;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   background-color: var(--primary);
+  margin-bottom: 30px;
 }
 .header {
+  width: 100%;
   display: flex;
   justify-content: center;
   font-size: 30px;
@@ -31,18 +35,16 @@ body {
 }
 .header h1 {
   text-align: center;
-  margin: 20px auto 10px auto;
+  margin: 20px 0 10px 0;
 }
 .main {
-  flex-grow: 0;
-  flex-shrink: 1;
-  flex-basis: auto;
   display: flex;
   margin-top: 30px;
 }
 .search {
   display: flex;
   flex-basis: 300px;
+  margin-left: 10px;
   flex-direction: column;
   height: 987px;
 }
@@ -112,13 +114,14 @@ body {
 }
 .current-container {
   margin-left: 20px;
+  margin-right: 20px;
   display: flex;
   flex-direction: column;
   width: 100%;
 }
 #display-current {
   height: 500px;
-  width: 100%;
+  width: 98%;
   border-style: solid;
   margin-left: 20px;
   background-color: var(--secondary);
@@ -138,12 +141,13 @@ body {
   font-size: 40px;
 }
 #display-uv {
-  width: 17%;
+  width: 11%;
 }
 #display-forcast {
   height: 400px;
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
 }
 
 #five-day-header {
@@ -152,9 +156,11 @@ body {
   margin-left: 20px;
 }
 .forecast-container {
-  width: 25%;
+  flex-basis: 270px;
+  width: 100%;
   margin-right: 20px;
   margin-left: 20px;
+  margin-bottom: 30px;
   border-style: solid;
   border-width: 5px;
   border-radius: 10px;
@@ -171,4 +177,48 @@ body {
   margin-bottom: 20px;
   margin-left: 5%;
   font-size: 20px;
+}
+
+@media (max-width: 1700px) {
+  #display-uv {
+    width: 15%;
+  }
+}
+@media (max-width: 1400px) {
+  #display-uv {
+    width: 19%;
+  }
+}
+@media (max-width: 1200px) {
+  #display-uv {
+    width: 22%;
+  }
+  #five-day-header {
+    margin-left: 90px;
+  }
+  .forecast-container {
+    flex-basis: 350px;
+    margin-left: 90px;
+  }
+  .forecast-header {
+    margin-left: 10%;
+    margin-top: 5px;
+    font-size: 30px;
+  }
+  .forecast-items {
+    margin-top: 15px;
+    margin-bottom: 20px;
+    margin-left: 10%;
+    font-size: 25px;
+  }
+}
+@media (max-width: 1000px) {
+  #display-uv {
+    width: 30%;
+  }
+}
+@media (max-width: 800px) {
+  #display-uv {
+    width: 35%;
+  }
 }
