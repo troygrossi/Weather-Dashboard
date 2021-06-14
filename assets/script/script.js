@@ -13,7 +13,7 @@ var getGeocode = function (city, state) {
   var long = 0;
   // format the api url
   var apiUrl =
-    "http://api.positionstack.com/v1/forward?access_key=" +
+    "https://api.positionstack.com/v1/forward?access_key=" +
     apiKeyLocation +
     "&query=" +
     city +
