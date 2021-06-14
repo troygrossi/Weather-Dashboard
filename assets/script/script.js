@@ -1,6 +1,8 @@
 var apiKeyLocation = "5e5bd93aa08421fd826028d64c87be12";
 var apiKeyWeather = "edbe3d30bd838d7b3fe074f4c378fa86";
 
+var clickEl = document.getElementsByClassName("search-items");
+
 var Location = function (city, state, lat, long) {
   this.name = city;
   this.state = state;
@@ -89,6 +91,9 @@ var updateHistory = function (newLocation) {
   var newNumberEl = document.createElement("span");
   var newHistoryEl = document.createElement("li");
   newHistoryEl.setAttribute("class", "search-items");
+  //update clickable items
+  clickEl = document.getElementsByClassName("search-items");
+
   newHistoryEl.setAttribute("id", "index" + historyIndex);
   newNumberEl.textContent = "1) ";
   newNumberEl.setAttribute("id", "number" + historyIndex);
@@ -202,8 +207,8 @@ var getCity = function (event) {
   }
 };
 
-var clickHistory = function () {
-  var temp = this.getAttribute("id");
+var clickHistory = function (id) {
+  var temp = id;
   id = temp.split("x")[1];
   var city = JSON.parse(localStorage.getItem("location" + id));
   document.querySelector("#search-city").value = city.name;
@@ -213,11 +218,12 @@ var clickHistory = function () {
 
 initialHistory();
 
-if (document.querySelector(".search-items")) {
-  for (let i = 1; i < historyIndex; i++) {
-    document
-      .querySelector("#index" + i)
-      .addEventListener("click", clickHistory);
+document.body.addEventListener("click", function (event) {
+  if (event.target.className === "search-items") {
+    clickHistory(event.target.id);
   }
-}
+});
+
 document.querySelector(".search-form").addEventListener("submit", getCity);
+
+//update clickEl after form submission
