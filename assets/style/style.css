@@ -73,22 +73,28 @@ body {
   margin-bottom: 10px;
 }
 #search-history {
-  border-style: solid;
   height: 100%;
   background-color: var(--history);
+  text-align: center;
+  border-style: solid;
+  border-style: solid;
+  border-width: 10px;
+  border-radius: 10px;
+  border-color: rgba(223, 221, 218, 0.507);
 }
 #search-history h3 {
   margin: 5px auto 0 auto;
   width: 70%;
   border-bottom-style: solid;
-  border-bottom-color: rgba(95, 95, 95, 0.548);
+  border-bottom-color: rgba(206, 206, 206, 0.548);
 }
 #search-list {
-  margin: 15px auto 0 auto;
+  margin: 15px 5px 0 5px;
   display: flex;
   flex-wrap: wrap;
   align-items: top;
   padding: 0;
+  text-align: left;
 }
 .search-items {
   font-size: 20px;
@@ -116,6 +122,9 @@ body {
   border-style: solid;
   margin-left: 20px;
   background-color: var(--secondary);
+  border-width: 10px;
+  border-radius: 10px;
+  border-color: rgba(116, 111, 102, 0.507);
 }
 .current-items {
   margin-top: 30px;
@@ -147,6 +156,9 @@ body {
   margin-right: 20px;
   margin-left: 20px;
   border-style: solid;
+  border-width: 5px;
+  border-radius: 10px;
+  border-color: rgba(255, 0, 0, 0.507);
   background-color: var(--tertiary);
 }
 .forecast-header {
