@@ -35,10 +35,10 @@ var getGeocode = function (city, state) {
       long = data.data[0].longitude;
       saveLocation(city, state, lat, long);
       getWeather(city, lat, long);
-    }); //cathes error if request fails to send
-  // .catch(function (error) {
-  //   alert("Error2: City Not Found");
-  // });
+    }) //cathes error if request fails to send
+    .catch(function (error) {
+      alert("Error2: City Not Found");
+    });
 };
 
 var getWeather = function (city, lat, long) {
@@ -141,6 +141,23 @@ var updateCurrent = function (city, data) {
   newWindEl.textContent = "Wind: " + data.current.wind_speed + " MPH";
   newHumidityEl.textContent = "Humidity: " + data.current.humidity + "%";
   newUVEl.textContent = "UV Index: " + data.current.uvi;
+  if (data.current.uvi <= 2) {
+    newUVEl.style.backgroundColor = getComputedStyle(
+      document.documentElement
+    ).getPropertyValue("--uv-low");
+  } else if (data.current.uvi > 2 && data.current.uvi <= 5) {
+    newUVEl.style.backgroundColor = getComputedStyle(
+      document.documentElement
+    ).getPropertyValue("--uv-medium");
+  } else if (data.current.uvi > 5 && data.current.uvi <= 7) {
+    newUVEl.style.backgroundColor = getComputedStyle(
+      document.documentElement
+    ).getPropertyValue("--uv-high");
+  } else {
+    newUVEl.style.backgroundColor = getComputedStyle(
+      document.documentElement
+    ).getPropertyValue("--uv-very-high");
+  }
   updateFiveDay(data);
 };
 

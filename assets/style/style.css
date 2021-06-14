@@ -4,9 +4,14 @@
     rgba(253, 72, 1, 0.815),
     rgba(0, 149, 194, 0.616)
   );
-  --primary: #ccdad1;
-  --secondary: #9caea9;
-  --tertiary: #788585;
+  --primary: #5d9b398c;
+  --secondary: #ff76409a;
+  --tertiary: #0c679bab;
+  --history: #67706cda;
+  --uv-low: rgba(60, 253, 1, 0.5);
+  --uv-medium: rgba(241, 237, 20, 0.548);
+  --uv-high: rgba(253, 72, 1, 0.514);
+  --uv-very-high: rgba(253, 1, 1, 0.486);
 }
 
 * {
@@ -15,6 +20,7 @@
 }
 
 body {
+  background-color: var(--primary);
 }
 .header {
   display: flex;
@@ -69,6 +75,7 @@ body {
 #search-history {
   border-style: solid;
   height: 100%;
+  background-color: var(--history);
 }
 #search-history h3 {
   margin: 5px auto 0 auto;
@@ -79,8 +86,8 @@ body {
 #search-list {
   margin: 15px auto 0 auto;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
+  align-items: top;
   padding: 0;
 }
 .search-items {
@@ -88,9 +95,10 @@ body {
   margin-bottom: 10px;
   list-style-type: none;
   border-style: solid;
-  border-color: rgba(128, 128, 128, 0.507);
+  border-color: rgba(245, 239, 239, 0.507);
   border-radius: 8px;
-  background-color: rgba(128, 128, 128, 0.5);
+  background-color: rgba(221, 218, 218, 0.5);
+  width: 100%;
 }
 .search-items:hover {
   cursor: pointer;
@@ -107,6 +115,7 @@ body {
   width: 100%;
   border-style: solid;
   margin-left: 20px;
+  background-color: var(--secondary);
 }
 .current-items {
   margin-top: 30px;
@@ -119,13 +128,8 @@ body {
   margin-top: 10px;
   font-size: 40px;
 }
-#display-temp {
-}
-#display-wind {
-}
-#display-humidity {
-}
 #display-uv {
+  width: 17%;
 }
 #display-forcast {
   height: 400px;
@@ -143,6 +147,7 @@ body {
   margin-right: 20px;
   margin-left: 20px;
   border-style: solid;
+  background-color: var(--tertiary);
 }
 .forecast-header {
   margin-left: 3%;
@@ -153,5 +158,5 @@ body {
   margin-top: 15px;
   margin-bottom: 20px;
   margin-left: 5%;
-  font-size: 15px;
+  font-size: 20px;
 }
