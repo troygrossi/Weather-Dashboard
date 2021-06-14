@@ -1,11 +1,11 @@
 var apiKeyLocation = "5e5bd93aa08421fd826028d64c87be12";
 var apiKeyWeather = "edbe3d30bd838d7b3fe074f4c378fa86";
 
-var Location = function (city, state, long, lat) {
+var Location = function (city, state, lat, long) {
   this.name = city;
   this.state = state;
-  this.latitude = long;
-  this.longitude = lat;
+  this.latitude = lat;
+  this.longitude = long;
 };
 
 var getGeocode = function (city, state) {
@@ -31,15 +31,14 @@ var getGeocode = function (city, state) {
       return response.json();
     })
     .then(function (data) {
-      console.log(data.data[0]);
       lat = data.data[0].latitude;
       long = data.data[0].longitude;
       saveLocation(city, state, lat, long);
       getWeather(city, lat, long);
-    }) //cathes error if request fails to send
-    .catch(function (error) {
-      alert("Error2: City Not Found");
-    });
+    }); //cathes error if request fails to send
+  // .catch(function (error) {
+  //   alert("Error2: City Not Found");
+  // });
 };
 
 var getWeather = function (city, lat, long) {
@@ -70,57 +69,93 @@ var getWeather = function (city, lat, long) {
     });
 };
 
-var locationIndex = 1;
+var historyIndex = 1;
 var saveLocation = function (city, state, lat, long) {
-  newLocation = new Location(city, state, long, lat);
-  localStorage.setItem("location" + locationIndex, JSON.stringify(newLocation));
+  if (historyIndex != 1) {
+    for (let i = 1; i < historyIndex; i++) {
+      var tempLocation = document.querySelector("#index" + i);
+      if (tempLocation.textContent === city + ", " + state) {
+        return 0;
+      }
+    }
+  }
+  var newLocation = new Location(city, state, lat, long);
+  localStorage.setItem("location" + historyIndex, JSON.stringify(newLocation));
+  localStorage.setItem("index", historyIndex);
   updateHistory(newLocation);
 };
-
 var historyContainerEl = document.querySelector("#search-list");
 var updateHistory = function (newLocation) {
+  var newNumberEl = document.createElement("span");
   var newHistoryEl = document.createElement("li");
-  for (let i = 1; i <= locationIndex; i++) {
-    let tempLocation = localStorage.getItem("location" + locationIndex);
-    tempLocation = JSON.parse(tempLocation);
-    console.log(tempLocation);
-  }
-  newHistoryEl.textContent = locationIndex + ") " + newLocation.name;
-  historyContainerEl.append(newHistoryEl);
+  newHistoryEl.setAttribute("class", "search-items");
+  newHistoryEl.setAttribute("id", "index" + historyIndex);
+  newNumberEl.textContent = "1) ";
+  newNumberEl.setAttribute("id", "number" + historyIndex);
+  newHistoryEl.textContent = newLocation.name + ", " + newLocation.state;
+  historyContainerEl.prepend(newHistoryEl);
+  historyContainerEl.prepend(newNumberEl);
 
-  locationIndex++;
+  var newNumber = 2;
+  for (let i = historyIndex - 1; i >= 1; i--) {
+    var test = document.querySelector("#number" + i);
+    test.textContent = newNumber + ") ";
+    newNumber++;
+  }
+  historyIndex++;
 };
 
-var newDailyEl = document.querySelector("#display-header");
-var newTempEl = document.querySelector("#display-temp");
-var newWindEl = document.querySelector("#display-wind");
-var newHumidityEl = document.querySelector("#display-humidity");
-var newUVEl = document.querySelector("#display-uv");
+var initialHistory = function () {
+  if (localStorage.getItem("index")) {
+    historyIndex = localStorage.getItem("index");
+
+    var tempNumber = historyIndex;
+    for (let i = 1; i <= historyIndex; i++) {
+      var tempLocation = JSON.parse(localStorage.getItem("location" + i));
+      var newNumberEl = document.createElement("span");
+      var newHistoryEl = document.createElement("li");
+      newHistoryEl.setAttribute("class", "search-items");
+      newHistoryEl.setAttribute("id", "index" + i);
+      newNumberEl.textContent = tempNumber + ") ";
+      newNumberEl.setAttribute("id", "number" + i);
+      newHistoryEl.textContent = tempLocation.name + ", " + tempLocation.state;
+      historyContainerEl.prepend(newHistoryEl);
+      historyContainerEl.prepend(newNumberEl);
+      tempNumber--;
+    }
+    historyIndex++;
+  }
+};
+
 var updateCurrent = function (city, data) {
-  console.log(data);
+  var newDailyEl = document.querySelector("#display-header");
+  var newTempEl = document.querySelector("#display-temp");
+  var newWindEl = document.querySelector("#display-wind");
+  var newHumidityEl = document.querySelector("#display-humidity");
+  var newUVEl = document.querySelector("#display-uv");
   var timeStamp = moment.unix(data.current.dt);
   currentTime = timeStamp.format("MMMM Do YYYY, h:mm:ss a");
 
-  newDailyEl.textContent = city + " " + currentTime;
-  newTempEl.textContent = data.current.temp;
-  newWindEl.textContent = data.current.wind_speed;
-  newHumidityEl.textContent = data.current.humidity;
-  newUVEl.textContent = data.current.uvi;
+  newDailyEl.textContent = city.toUpperCase() + ", " + currentTime;
+  newTempEl.textContent = "Temperature: " + data.current.temp + " F";
+  newWindEl.textContent = "Wind: " + data.current.wind_speed + " MPH";
+  newHumidityEl.textContent = "Humidity: " + data.current.humidity + "%";
+  newUVEl.textContent = "UV Index: " + data.current.uvi;
   updateFiveDay(data);
 };
 
 //index = amount of forecast days(5)
 var index = 5;
 var updateFiveDay = function (data) {
-  console.log(data);
   var timeStamp = moment.unix(data.daily[1].dt);
   var date = timeStamp.format("MMMM Do YYYY");
-  console.log(date);
+
   for (let i = 1; i <= index; i++) {
     var timeStamp = moment.unix(data.daily[i].dt);
     var date = timeStamp.format("MMMM Do YYYY");
     var iconCode = data.daily[i].weather[0].icon;
     var iconURL = "http://openweathermap.org/img/w/" + iconCode + ".png";
+
     document.querySelector("#day-" + i + "-date").textContent = date;
     document.querySelector("#day-" + i + "-img").setAttribute("src", iconURL);
     document
@@ -148,11 +183,24 @@ var getCity = function (event) {
   } else {
     getGeocode(city, state);
   }
-
-  console.log(city);
-  console.log(state);
 };
 
-// getCity();
-// getState();
-document.addEventListener("submit", getCity);
+var clickHistory = function () {
+  var temp = this.getAttribute("id");
+  id = temp.split("x")[1];
+  var city = JSON.parse(localStorage.getItem("location" + id));
+  document.querySelector("#search-city").value = city.name;
+  document.querySelector("#search-state").value = city.state;
+  getGeocode(city.name, city.state);
+};
+
+initialHistory();
+
+if (document.querySelector(".search-items")) {
+  for (let i = 1; i < historyIndex; i++) {
+    document
+      .querySelector("#index" + i)
+      .addEventListener("click", clickHistory);
+  }
+}
+document.querySelector(".search-form").addEventListener("submit", getCity);
